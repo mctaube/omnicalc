@@ -10,14 +10,17 @@ class CalculationsController < ApplicationController
     # The special word the user input is in the string @special_word.
     # ================================================================================
 
+    text_split_into_array = @text.downcase.split
 
-    @word_count = "Replace this string with your answer."
+    @word_count = text_split_into_array.length
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    @character_count_with_spaces = @text.length
 
-    @character_count_without_spaces = "Replace this string with your answer."
+    @character_count_without_spaces = text_split_into_array.join.length
 
-    @occurrences = "Replace this string with your answer."
+    takeout_special_characters = @text.downcase.gsub(/[^a-z ]/, "")
+    array_without_special_char = takeout_special_characters.split
+    @occurrences = array_without_special_char.count(@special_word)
 
     # ================================================================================
     # Your code goes above.
@@ -38,7 +41,25 @@ class CalculationsController < ApplicationController
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
 
-    @monthly_payment = "Replace this string with your answer."
+    # Convert annual rate to monthly and make it decimal.
+     monthly_rate = @apr/1200
+
+     # Numerator
+     numerator = 1*(1*monthly_rate)**number_of_years
+
+     *@principal
+
+     number_of_months = @years/12
+
+
+
+     # Denominator
+     denominator = 1 - (1 + monthly_rate)**-@years
+
+     # Calc the monthly payment.
+    #  pmt = n / d
+
+    @monthly_payment = numerator/denominator
 
     # ================================================================================
     # Your code goes above.
