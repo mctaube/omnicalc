@@ -45,21 +45,17 @@ class CalculationsController < ApplicationController
      monthly_rate = @apr/1200
 
      # Numerator
-     numerator = 1*(1*monthly_rate)**number_of_years
+     numerator = monthly_rate*@principal
 
-     *@principal
-
-     number_of_months = @years/12
-
-
+     number_of_months = @years*12
 
      # Denominator
-     denominator = 1 - (1 + monthly_rate)**-@years
+     denominator = 1 - ((1 + monthly_rate)**(-number_of_months))
 
      # Calc the monthly payment.
     #  pmt = n / d
 
-    @monthly_payment = numerator/denominator
+    @monthly_payment = numerator/denominator.to_f
 
     # ================================================================================
     # Your code goes above.
