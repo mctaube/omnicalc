@@ -92,52 +92,45 @@ class CalculationsController < ApplicationController
   end
 
 
-    def descriptive_statistics
-      @numbers = params[:list_of_numbers].gsub(',', '').split.map(&:to_f)
+  def descriptive_statistics
+    @numbers = params[:list_of_numbers].gsub(',', '').split.map(&:to_f)
 
-      # ================================================================================
-      # Your code goes below.
-      # The numbers the user input are in the array @numbers.
-      # ================================================================================
+    # ================================================================================
+    # Your code goes below.
+    # The numbers the user input are in the array @numbers.
+    # ================================================================================
 
-      @sorted_numbers = @numbers.sort
+    @sorted_numbers = @numbers.sort
 
-      @count = @numbers.count
+    @count = @numbers.count
 
-      @minimum = @numbers.sort.first
+    @minimum = @numbers.sort.first
 
-      @maximum = @numbers.sort.last
+    @maximum = @numbers.sort.last
 
-      sorted_array=@numbers.sort
-      @range = sorted_array.last-sorted_array.first
+    @range = @sorted_numbers.last-@sorted_numbers.first
 
-      countofarray= @numbers.count
-
-      # def median
-      #   if countofarray.odd?
-      #     sorted_array.at((countofarray-1)/2)
-      #   else
-      #     (sorted_array.at((countofarray)/2)
-      #     # (sorted_array.at((countofarray)/2)-sorted_array.at((countofarray/2)-1))/2
-      #   end
-      # end
-
-      @median =
-
-      @sum = @numbers.sum
-
-      @mean = @sum/@numbers.count
-
-      @variance = "Replace this string with your answer."
-
-      @standard_deviation = "Replace this string with your answer."
-
-      @mode = "Replace this string with your answer."
-
-      # ================================================================================
-      # Your code goes above.
-      # ================================================================================
-
-      render("descriptive_statistics.html.erb")
+    @median =
+    if @count.odd?
+      @sorted_numbers.at((@count-1)/2)
+    else
+      (@sorted_numbers.at((@count+1)/2)+@sorted_numbers.at((@count-1)/2))/2
     end
+
+    @sum = @numbers.sum
+
+    @mean = @sum/@numbers.count
+
+    @variance = "Replace this string with your answer."
+
+    @standard_deviation = "Replace this string with your answer."
+
+    @mode = "Replace this string with your answer."
+
+    # ================================================================================
+    # Your code goes above.
+    # ================================================================================
+
+    render("descriptive_statistics.html.erb")
   end
+end
