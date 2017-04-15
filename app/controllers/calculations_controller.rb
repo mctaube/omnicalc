@@ -42,17 +42,17 @@ class CalculationsController < ApplicationController
     # ================================================================================
 
     # Convert annual rate to monthly and make it decimal.
-     monthly_rate = @apr/1200
+    monthly_rate = @apr/1200
 
-     # Numerator
-     numerator = monthly_rate*@principal
+    # Numerator
+    numerator = monthly_rate*@principal
 
-     number_of_months = @years*12
+    number_of_months = @years*12
 
-     # Denominator
-     denominator = 1 - ((1 + monthly_rate)**(-number_of_months))
+    # Denominator
+    denominator = 1 - ((1 + monthly_rate)**(-number_of_months))
 
-     # Calc the monthly payment.
+    # Calc the monthly payment.
     #  pmt = n / d
 
     @monthly_payment = numerator/denominator.to_f
@@ -77,12 +77,12 @@ class CalculationsController < ApplicationController
     #   number of seconds as a result.
     # ================================================================================
 
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
+    @seconds = @ending - @starting
+    @minutes = @seconds/60.to_f
+    @hours = @minutes/60.to_f
+    @days = @hours/24.to_f
+    @weeks = @days/7.to_f
+    @years = @days/365.to_f
 
     # ================================================================================
     # Your code goes above.
@@ -91,40 +91,53 @@ class CalculationsController < ApplicationController
     render("time_between.html.erb")
   end
 
-  def descriptive_statistics
-    @numbers = params[:list_of_numbers].gsub(',', '').split.map(&:to_f)
 
-    # ================================================================================
-    # Your code goes below.
-    # The numbers the user input are in the array @numbers.
-    # ================================================================================
+    def descriptive_statistics
+      @numbers = params[:list_of_numbers].gsub(',', '').split.map(&:to_f)
 
-    @sorted_numbers = "Replace this string with your answer."
+      # ================================================================================
+      # Your code goes below.
+      # The numbers the user input are in the array @numbers.
+      # ================================================================================
 
-    @count = "Replace this string with your answer."
+      @sorted_numbers = @numbers.sort
 
-    @minimum = "Replace this string with your answer."
+      @count = @numbers.count
 
-    @maximum = "Replace this string with your answer."
+      @minimum = @numbers.sort.first
 
-    @range = "Replace this string with your answer."
+      @maximum = @numbers.sort.last
 
-    @median = "Replace this string with your answer."
+      sorted_array=@numbers.sort
+      @range = sorted_array.last-sorted_array.first
 
-    @sum = "Replace this string with your answer."
+      countofarray= @numbers.count
 
-    @mean = "Replace this string with your answer."
+      # def median
+      #   if countofarray.odd?
+      #     sorted_array.at((countofarray-1)/2)
+      #   else
+      #     (sorted_array.at((countofarray)/2)
+      #     # (sorted_array.at((countofarray)/2)-sorted_array.at((countofarray/2)-1))/2
+      #   end
+      # end
 
-    @variance = "Replace this string with your answer."
+      @median =
 
-    @standard_deviation = "Replace this string with your answer."
+      @sum = @numbers.sum
 
-    @mode = "Replace this string with your answer."
+      @mean = @sum/@numbers.count
 
-    # ================================================================================
-    # Your code goes above.
-    # ================================================================================
+      @variance = "Replace this string with your answer."
 
-    render("descriptive_statistics.html.erb")
+      @standard_deviation = "Replace this string with your answer."
+
+      @mode = "Replace this string with your answer."
+
+      # ================================================================================
+      # Your code goes above.
+      # ================================================================================
+
+      render("descriptive_statistics.html.erb")
+    end
   end
-end
