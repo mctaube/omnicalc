@@ -121,11 +121,11 @@ class CalculationsController < ApplicationController
 
     @mean = @sum/@numbers.count
 
-    @variance = "Replace this string with your answer."
+    @variance = @numbers.sum {|x| (x-@mean)**2}/@count
 
-    @standard_deviation = "Replace this string with your answer."
+    @standard_deviation = @variance**(0.5)
 
-    @mode = "Replace this string with your answer."
+    @mode = @numbers.mode
 
     # ================================================================================
     # Your code goes above.
