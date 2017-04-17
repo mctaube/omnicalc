@@ -125,7 +125,7 @@ class CalculationsController < ApplicationController
 
     @standard_deviation = @variance**(0.5)
 
-    @mode = @numbers.mode
+    @mode = @numbers
 
     # ================================================================================
     # Your code goes above.
