@@ -125,16 +125,12 @@ class CalculationsController < ApplicationController
 
     @standard_deviation = @variance**(0.5)
 
-    temp_mode= @sorted_numbers[0]
-    i = 1
-    while i < @count
-      count_i = @sorted_numbers.count(@sorted_numbers[i])
-      if count_i > @sorted_numbers.count(temp_mode)
-        temp_mode = i
-      end
-      i += 1
-    end
-    @mode = temp_mode
+    unique = @numbers.uniq
+    unique_mapped = unique.map {|i| [i, @numbers.count(i)]}
+    unique_mapped_sorted = unique_mapped.sort_by {|_,cnt| -cnt}
+    take_most_frequent = unique_mapped_sorted[0]
+    first_mode = take_most_frequent[0]
+    @mode = first_mode
 
     # ================================================================================
     # Your code goes above.
