@@ -125,7 +125,16 @@ class CalculationsController < ApplicationController
 
     @standard_deviation = @variance**(0.5)
 
-    @mode = @numbers
+    temp_mode= @sorted_numbers[0]
+    i = 1
+    while i < @count
+      count_i = @sorted_numbers.count(@sorted_numbers[i])
+      if count_i > @sorted_numbers.count(temp_mode)
+        temp_mode = i
+      end
+      i += 1
+    end
+    @mode = temp_mode
 
     # ================================================================================
     # Your code goes above.
